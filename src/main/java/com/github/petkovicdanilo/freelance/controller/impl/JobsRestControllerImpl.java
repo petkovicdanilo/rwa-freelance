@@ -1,42 +1,36 @@
-package com.github.petkovicdanilo.freelance.controller;
+package com.github.petkovicdanilo.freelance.controller.impl;
 
+import com.github.petkovicdanilo.freelance.controller.JobsRestController;
 import com.github.petkovicdanilo.freelance.model.Job;
 import com.github.petkovicdanilo.freelance.service.JobsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
-public class JobsController {
+public class JobsRestControllerImpl implements JobsRestController {
 
     private final JobsService jobsService;
 
-    @GetMapping()
     public List<Job> getJobs() {
         return jobsService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public Job getJob(@PathVariable int id) {
+    public Job getJob(int id) {
         return jobsService.getOne(id);
     }
 
-    @PostMapping()
-    public Job saveJob(@RequestBody Job job) {
+    public Job saveJob(Job job) {
         return jobsService.save(job);
     }
 
-    @PutMapping("/{id}")
-    public Job updateJob(@PathVariable int id, @RequestBody Job updatedJob) {
+    public Job updateJob(int id, Job updatedJob) {
         return jobsService.update(id, updatedJob);
     }
 
-    @DeleteMapping("/{id}")
-    public Job remove(@PathVariable int id) {
+    public Job remove(int id) {
         return jobsService.remove(id);
     }
 }
