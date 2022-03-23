@@ -30,7 +30,7 @@ public class JobsRestControllerImpl implements JobsRestController {
         return jobsService.update(id, updatedJob);
     }
 
-    public Job remove(int id) {
+    public Job removeJob(int id) {
         return jobsService.remove(id);
     }
 }

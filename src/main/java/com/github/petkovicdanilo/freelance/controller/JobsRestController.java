@@ -21,5 +21,5 @@ public interface JobsRestController {
     public Job updateJob(@PathVariable int id, @RequestBody Job updatedJob);
 
     @DeleteMapping("/{id}")
-    public Job remove(@PathVariable int id);
+    public Job removeJob(@PathVariable int id);
 }
