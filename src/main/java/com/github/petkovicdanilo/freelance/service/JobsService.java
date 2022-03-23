@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobsService {
@@ -13,17 +14,32 @@ public class JobsService {
     public JobsService() {
         jobs = new ArrayList<>();
 
-        jobs.add(new Job(1, "job 1"));
-        jobs.add(new Job(2, "job 2"));
-        jobs.add(new Job(3, "job 3"));
+        jobs.add(new Job(1, "job 1", 100));
+        jobs.add(new Job(2, "job 2", 200));
+        jobs.add(new Job(3, "job 3", 300));
     }
 
     public Job getOne(int id) {
         return jobs.get(id - 1);
     }
 
-    public List<Job> getAll() {
-        return jobs;
+    public List<Job> getAll(Integer minPrice) {
+//        List<Job> filteredJobs = new ArrayList<>();
+//        for(Job job : jobs) {
+//            if(job.getPrice() >= minPrice) {
+//                filteredJobs.add(job);
+//            }
+//        }
+//
+//        return filteredJobs;
+
+        if(minPrice == null) {
+            return jobs;
+        }
+
+        return jobs.stream()
+                .filter(job -> job.getPrice() >= minPrice)
+                .collect(Collectors.toList());
     }
 
     public Job save(Job job) {

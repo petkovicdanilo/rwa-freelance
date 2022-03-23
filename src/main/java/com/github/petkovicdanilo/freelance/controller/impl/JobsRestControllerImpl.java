@@ -14,8 +14,8 @@ public class JobsRestControllerImpl implements JobsRestController {
 
     private final JobsService jobsService;
 
-    public List<Job> getJobs() {
-        return jobsService.getAll();
+    public List<Job> getJobs(Integer minPrice) {
+        return jobsService.getAll(minPrice);
     }
 
     public Job getJob(int id) {

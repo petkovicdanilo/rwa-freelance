@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping(path = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface JobsRestController {
     @GetMapping()
-    List<Job> getJobs();
+    List<Job> getJobs(@RequestParam(name = "min-price", required = false) Integer minPrice);
 
     @GetMapping("/{id}")
     public Job getJob(@PathVariable int id);
