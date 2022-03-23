@@ -1,4 +1,4 @@
-package com.github.petkovicdanilo.freelance;
+package com.github.petkovicdanilo.freelance.model;
 
 import lombok.*;
 

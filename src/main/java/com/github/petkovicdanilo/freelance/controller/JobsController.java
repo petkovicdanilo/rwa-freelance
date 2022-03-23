@@ -1,57 +1,42 @@
-package com.github.petkovicdanilo.freelance;
+package com.github.petkovicdanilo.freelance.controller;
 
+import com.github.petkovicdanilo.freelance.model.Job;
+import com.github.petkovicdanilo.freelance.service.JobsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
 public class JobsController {
 
-    private List<Job> jobs;
-
-    public JobsController() {
-        this.jobs = new ArrayList<>();
-
-        this.jobs.add(new Job(1, "job 1"));
-        this.jobs.add(new Job(2, "job 2"));
-        this.jobs.add(new Job(3, "job 3"));
-    }
-
+    private final JobsService jobsService;
 
     @GetMapping()
-    public List<Job> getAll() {
-        return jobs;
+    public List<Job> getJobs() {
+        return jobsService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Job getOne(@PathVariable int id) {
-        return jobs.get(id - 1);
+    public Job getJob(@PathVariable int id) {
+        return jobsService.getOne(id);
     }
 
     @PostMapping()
-    public Job create(@RequestBody Job job) {
-        jobs.add(job);
-        return job;
+    public Job saveJob(@RequestBody Job job) {
+        return jobsService.save(job);
     }
 
     @PutMapping("/{id}")
-    public Job update(@RequestBody Job updatedJob, @PathVariable int id) {
-        Job job = jobs.get(id - 1);
-        job.setId(updatedJob.getId());
-        job.setDescription(updatedJob.getDescription());
-
-        return job;
+    public Job updateJob(@PathVariable int id, @RequestBody Job updatedJob) {
+        return jobsService.update(id, updatedJob);
     }
 
     @DeleteMapping("/{id}")
     public Job remove(@PathVariable int id) {
-        Job job = jobs.get(id - 1);
-        jobs.remove(id - 1);
-
-        return job;
+        return jobsService.remove(id);
     }
 }
