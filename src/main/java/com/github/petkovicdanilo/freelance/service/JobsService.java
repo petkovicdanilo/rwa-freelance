@@ -48,7 +48,7 @@ public class JobsService {
     }
 
     public Job update(int id, Job updatedJob) {
-        Job job = jobs.get(id - 1);
+        Job job = this.getOne(id);
         job.setId(updatedJob.getId());
         job.setDescription(updatedJob.getDescription());
 
@@ -56,7 +56,7 @@ public class JobsService {
     }
 
     public Job remove(int id) {
-        Job job = jobs.get(id - 1);
+        Job job = this.getOne(id);
         jobs.remove(id - 1);
 
         return job;
