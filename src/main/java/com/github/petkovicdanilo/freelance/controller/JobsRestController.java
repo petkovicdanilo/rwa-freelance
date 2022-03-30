@@ -13,15 +13,15 @@ public interface JobsRestController {
     List<Job> getJobs(@RequestParam(name = "min-price", required = false) Double minPrice);
 
     @GetMapping("/{id}")
-    public Job getJob(@PathVariable int id);
+    Job getJob(@PathVariable int id);
 
     @PostMapping()
-    public Job saveJob(@RequestBody Job job);
+    Job saveJob(@RequestBody Job job);
 
     @PutMapping("/{id}")
-    public Job updateJob(@PathVariable int id, @RequestBody Job updatedJob);
+    Job updateJob(@PathVariable int id, @RequestBody Job updatedJob);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeJob(@PathVariable int id);
+    void removeJob(@PathVariable int id);
 }
