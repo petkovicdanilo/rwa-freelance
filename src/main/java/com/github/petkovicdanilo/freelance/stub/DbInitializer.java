@@ -7,6 +7,7 @@ import com.github.petkovicdanilo.freelance.repository.JobsRepository;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import com.github.petkovicdanilo.freelance.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,13 +17,12 @@ import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DbInitializer implements CommandLineRunner {
 
     private final UsersRepository usersRepository;
     private final JobsRepository jobsRepository;
     private final TechnologiesRepository technologiesRepository;
-
-    private final Logger logger = LoggerFactory.getLogger(DbInitializer.class);
 
     @Override
     public void run(String... args) throws Exception {
@@ -48,7 +48,7 @@ public class DbInitializer implements CommandLineRunner {
 //                .build();
 //
 //        usersRepository.saveAll(Arrays.asList(user1, user2, user3));
-//        logger.info("Initialized users");
+//        log.info("Initialized users");
 //
 //        Job job1 = Job.builder()
 //                .description("job 1")
@@ -64,7 +64,7 @@ public class DbInitializer implements CommandLineRunner {
 //                .build();
 //
 //        jobsRepository.saveAll(Arrays.asList(job1, job2, job3));
-//        logger.info("Initialized jobs");
+//        log.info("Initialized jobs");
 //
 //        Technology java = Technology.builder().name("Java").build();
 //        Technology cSharp = Technology.builder().name("C#").build();
@@ -72,6 +72,6 @@ public class DbInitializer implements CommandLineRunner {
 //        Technology cpp = Technology.builder().name("C++").build();
 //
 //        technologiesRepository.saveAll(Arrays.asList(java, cSharp, spring, cpp));
-//        logger.info("Initialized technologies");
+//        log.info("Initialized technologies");
     }
 }
