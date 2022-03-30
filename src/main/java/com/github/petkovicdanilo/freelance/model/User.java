@@ -29,7 +29,6 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("UNKNOWN")
     @Builder.Default
     private Gender gender = Gender.UNKNOWN;
 

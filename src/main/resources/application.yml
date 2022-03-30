@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:freelance
+    url: jdbc:mysql://${FREELANCE_DB_HOST:localhost}:3306/${FREELANCE_DB:freelance}
     username: ${FREELANCE_DB_USERNAME:sa}
     password: ${FREELANCE_DB_PASSWORD:password}
-  h2:
-    console:
-      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update # careful in production!!!
