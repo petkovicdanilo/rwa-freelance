@@ -35,13 +35,11 @@ public class TechnologiesService {
         return technology;
     }
 
-    public Technology remove(int id) {
-        Technology technology = technologiesRepository.findById(id).orElse(null);
-        if(technology == null) {
-            return null;
+    public void remove(int id) {
+        if(!technologiesRepository.existsById(id)) {
+            return;
         }
 
         technologiesRepository.deleteById(id);
-        return technology;
     }
 }

@@ -1,6 +1,7 @@
 package com.github.petkovicdanilo.freelance.controller;
 
 import com.github.petkovicdanilo.freelance.model.Job;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @RequestMapping(path = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface JobsRestController {
     @GetMapping()
-    List<Job> getJobs(@RequestParam(name = "min-price", required = false) Integer minPrice);
+    List<Job> getJobs(@RequestParam(name = "min-price", required = false) Double minPrice);
 
     @GetMapping("/{id}")
     public Job getJob(@PathVariable int id);
@@ -21,5 +22,6 @@ public interface JobsRestController {
     public Job updateJob(@PathVariable int id, @RequestBody Job updatedJob);
 
     @DeleteMapping("/{id}")
-    public Job removeJob(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeJob(@PathVariable int id);
 }

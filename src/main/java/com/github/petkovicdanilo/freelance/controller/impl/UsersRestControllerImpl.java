@@ -34,7 +34,7 @@ public class UsersRestControllerImpl implements UsersRestController {
     }
 
     @Override
-    public User removeUser(int id) {
-        return usersService.remove(id);
+    public void removeUser(int id) {
+        usersService.remove(id);
     }
 }

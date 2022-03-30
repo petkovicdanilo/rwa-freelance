@@ -2,6 +2,7 @@ package com.github.petkovicdanilo.freelance.controller;
 
 
 import com.github.petkovicdanilo.freelance.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +23,6 @@ public interface UsersRestController {
     User updateUser(@PathVariable int id, @RequestBody User updatedUser);
 
     @DeleteMapping("/{id}")
-    User removeUser(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeUser(@PathVariable int id);
 }

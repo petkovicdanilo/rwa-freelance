@@ -36,13 +36,11 @@ public class JobsService {
         return jobsRepository.save(job);
     }
 
-    public Job remove(int id) {
-        Job job = jobsRepository.findById(id).orElse(null);
-        if(job == null) {
-             return null;
+    public void remove(int id) {
+        if (!jobsRepository.existsById(id)) {
+            return;
         }
 
         jobsRepository.deleteById(id);
-        return job;
     }
 }

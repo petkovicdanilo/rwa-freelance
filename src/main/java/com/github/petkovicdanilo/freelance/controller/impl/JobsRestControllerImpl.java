@@ -14,7 +14,7 @@ public class JobsRestControllerImpl implements JobsRestController {
 
     private final JobsService jobsService;
 
-    public List<Job> getJobs(Integer minPrice) {
+    public List<Job> getJobs(Double minPrice) {
         return jobsService.getAll(minPrice);
     }
 
@@ -30,7 +30,7 @@ public class JobsRestControllerImpl implements JobsRestController {
         return jobsService.update(id, updatedJob);
     }
 
-    public Job removeJob(int id) {
-        return jobsService.remove(id);
+    public void removeJob(int id) {
+        jobsService.remove(id);
     }
 }

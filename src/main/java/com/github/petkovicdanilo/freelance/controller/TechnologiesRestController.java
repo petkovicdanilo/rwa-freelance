@@ -1,6 +1,7 @@
 package com.github.petkovicdanilo.freelance.controller;
 
 import com.github.petkovicdanilo.freelance.model.Technology;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +22,6 @@ public interface TechnologiesRestController {
     Technology updateTechnology(@PathVariable int id, @RequestBody Technology technology);
 
     @DeleteMapping("/{id}")
-    Technology removeTechnology(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeTechnology(@PathVariable int id);
 }

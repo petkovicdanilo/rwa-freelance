@@ -38,13 +38,11 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
-    public User remove(int id) {
-        User user = usersRepository.findById(id).orElse(null);
-        if(user == null) {
-            return null;
+    public void remove(int id) {
+        if(!usersRepository.existsById(id)) {
+            return;
         }
 
         usersRepository.deleteById(id);
-        return user;
     }
 }

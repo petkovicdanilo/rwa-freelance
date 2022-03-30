@@ -35,7 +35,7 @@ public class TechnologiesRestControllerImpl implements TechnologiesRestControlle
     }
 
     @Override
-    public Technology removeTechnology(int id) {
-        return this.technologiesService.remove(id);
+    public void removeTechnology(int id) {
+        this.technologiesService.remove(id);
     }
 }
