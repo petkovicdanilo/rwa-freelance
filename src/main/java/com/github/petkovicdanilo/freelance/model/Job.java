@@ -18,8 +18,9 @@ public class Job {
     @GeneratedValue
     private int id;
 
-    @Column(length = 1024)
+    @Column(length = 1024, nullable = false)
     private String description;
 
+    @Column(nullable = false)
     private double price;
 }
