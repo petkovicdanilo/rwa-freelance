@@ -1,40 +1,33 @@
 package com.github.petkovicdanilo.freelance.service;
 
 import com.github.petkovicdanilo.freelance.model.Technology;
+import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TechnologiesService {
-    private final List<Technology> technologies;
 
-    public TechnologiesService() {
-        this.technologies = new ArrayList<>();
-
-        this.technologies.add(new Technology(1, "Java"));
-        this.technologies.add(new Technology(2, "C#"));
-        this.technologies.add(new Technology(3, "Spring"));
-        this.technologies.add(new Technology(4, "C/C++"));
-    }
+    private final TechnologiesRepository technologiesRepository;
 
     public List<Technology> getAll() {
-        return this.technologies;
+        return technologiesRepository.findAll();
     }
 
     public Technology getOne(int id) {
-        return this.technologies.get(id - 1);
+        return technologiesRepository.findById(id).orElse(null);
     }
 
     public Technology save(Technology technology) {
-        this.technologies.add(technology);
-
+        technologiesRepository.save(technology);
         return technology;
     }
 
     public Technology update(int id, Technology updatedTechnology) {
-        Technology technology = this.getOne(id);
+        Technology technology = technologiesRepository.findById(id).orElse(null);
 
         technology.setId(updatedTechnology.getId());
         technology.setName(updatedTechnology.getName());
@@ -43,10 +36,12 @@ public class TechnologiesService {
     }
 
     public Technology remove(int id) {
-        Technology technology = this.getOne(id);
+        Technology technology = technologiesRepository.findById(id).orElse(null);
+        if(technology == null) {
+            return null;
+        }
 
-        this.technologies.remove(id - 1);
-
+        technologiesRepository.deleteById(id);
         return technology;
     }
 }

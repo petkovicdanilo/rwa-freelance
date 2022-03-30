@@ -1,59 +1,32 @@
 package com.github.petkovicdanilo.freelance.service;
 
 import com.github.petkovicdanilo.freelance.model.User;
+import com.github.petkovicdanilo.freelance.repository.UsersRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UsersService {
-    private final List<User> users;
-
-    public UsersService() {
-        users = new ArrayList<>();
-
-        users.add(User.builder()
-                .id(1)
-                .firstName("Pera")
-                .lastName("Peric")
-                .email("pera.peric@example.com")
-                .password("pera")
-                .gender(User.Gender.MALE)
-                .build());
-        users.add(User.builder()
-                .id(2)
-                .firstName("Milica")
-                .lastName("Milicevic")
-                .email("milica@example.com")
-                .password("milica")
-                .gender(User.Gender.FEMALE)
-                .build());
-        users.add(User.builder()
-                .id(3)
-                .firstName("Vanja")
-                .lastName("Vanjic")
-                .email("vanja@example.com")
-                .password("vanja")
-                .build());
-    }
+    private final UsersRepository usersRepository;
 
     public List<User> getAll() {
-        return users;
+        return usersRepository.findAll();
     }
 
     public User getOne(int id) {
-        return users.get(id - 1);
+        return usersRepository.findById(id).orElse(null);
     }
 
     public User save(User user) {
-        users.add(user);
-
-        return user;
+        return usersRepository.save(user);
     }
 
     public User update(int id, User updatedUser) {
-        User user = this.getOne(id);
+        User user = usersRepository.findById(id).orElse(null);
 
         user.setId(updatedUser.getId());
         user.setFirstName(updatedUser.getFirstName());
@@ -62,14 +35,16 @@ public class UsersService {
         user.setPassword(updatedUser.getPassword());
         user.setGender(updatedUser.getGender());
 
-        return user;
+        return usersRepository.save(user);
     }
 
     public User remove(int id) {
-        User user = this.getOne(id);
+        User user = usersRepository.findById(id).orElse(null);
+        if(user == null) {
+            return null;
+        }
 
-        users.remove(id - 1);
-
+        usersRepository.deleteById(id);
         return user;
     }
 }

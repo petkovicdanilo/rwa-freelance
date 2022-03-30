@@ -1,6 +1,9 @@
 package com.github.petkovicdanilo.freelance.service;
 
 import com.github.petkovicdanilo.freelance.model.Job;
+import com.github.petkovicdanilo.freelance.repository.JobsRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,57 +11,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class JobsService {
-    private List<Job> jobs;
-
-    public JobsService() {
-        jobs = new ArrayList<>();
-
-        jobs.add(new Job(1, "job 1", 100));
-        jobs.add(new Job(2, "job 2", 200));
-        jobs.add(new Job(3, "job 3", 300));
-    }
+    private final JobsRepository jobsRepository;
 
     public Job getOne(int id) {
-        return jobs.get(id - 1);
+        return jobsRepository.findById(id).orElse(null);
     }
 
-    public List<Job> getAll(Integer minPrice) {
-//        List<Job> filteredJobs = new ArrayList<>();
-//        for(Job job : jobs) {
-//            if(job.getPrice() >= minPrice) {
-//                filteredJobs.add(job);
-//            }
-//        }
-//
-//        return filteredJobs;
-
-        if(minPrice == null) {
-            return jobs;
-        }
-
-        return jobs.stream()
-                .filter(job -> job.getPrice() >= minPrice)
-                .collect(Collectors.toList());
+    public List<Job> getAll(Double minPrice) {
+        return jobsRepository.findAll();
     }
 
     public Job save(Job job) {
-        jobs.add(job);
-        return job;
+        return jobsRepository.save(job);
     }
 
     public Job update(int id, Job updatedJob) {
-        Job job = this.getOne(id);
+        Job job = jobsRepository.findById(id).orElse(null);
+
         job.setId(updatedJob.getId());
         job.setDescription(updatedJob.getDescription());
 
-        return job;
+        return jobsRepository.save(job);
     }
 
     public Job remove(int id) {
-        Job job = this.getOne(id);
-        jobs.remove(id - 1);
+        Job job = jobsRepository.findById(id).orElse(null);
+        if(job == null) {
+             return null;
+        }
 
+        jobsRepository.deleteById(id);
         return job;
     }
 }
