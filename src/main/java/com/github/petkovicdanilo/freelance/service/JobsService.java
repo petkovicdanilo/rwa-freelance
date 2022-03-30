@@ -20,6 +20,10 @@ public class JobsService {
     }
 
     public List<Job> getAll(Double minPrice) {
+        if(minPrice != null) {
+            return jobsRepository.findAllWithMinPrice(minPrice);
+        }
+
         return jobsRepository.findAll();
     }
 
