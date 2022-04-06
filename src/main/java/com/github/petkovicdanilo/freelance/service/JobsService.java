@@ -1,5 +1,7 @@
 package com.github.petkovicdanilo.freelance.service;
 
+import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Job;
 import com.github.petkovicdanilo.freelance.repository.JobsRepository;
 import lombok.AllArgsConstructor;
@@ -15,8 +17,9 @@ import java.util.stream.Collectors;
 public class JobsService {
     private final JobsRepository jobsRepository;
 
-    public Job getOne(int id) {
-        return jobsRepository.findById(id).orElse(null);
+    public Job getOne(int id) throws ResourceNotFoundException {
+        return jobsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.JOB));
     }
 
     public List<Job> getAll(Double minPrice) {
@@ -31,8 +34,9 @@ public class JobsService {
         return jobsRepository.save(job);
     }
 
-    public Job update(int id, Job updatedJob) {
-        Job job = jobsRepository.findById(id).orElse(null);
+    public Job update(int id, Job updatedJob) throws ResourceNotFoundException {
+        Job job = jobsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.JOB));
 
         job.setId(updatedJob.getId());
         job.setDescription(updatedJob.getDescription());
@@ -40,9 +44,9 @@ public class JobsService {
         return jobsRepository.save(job);
     }
 
-    public void remove(int id) {
+    public void remove(int id) throws ResourceNotFoundException {
         if (!jobsRepository.existsById(id)) {
-            return;
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.JOB);
         }
 
         jobsRepository.deleteById(id);

@@ -1,6 +1,8 @@
 package com.github.petkovicdanilo.freelance.controller.impl;
 
 import com.github.petkovicdanilo.freelance.controller.UsersRestController;
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
+import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.User;
 import com.github.petkovicdanilo.freelance.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -19,22 +21,22 @@ public class UsersRestControllerImpl implements UsersRestController {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(int id) throws ResourceNotFoundException {
         return usersService.getOne(id);
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(User user) throws UniqueViolationException {
         return usersService.save(user);
     }
 
     @Override
-    public User updateUser(int id, User updatedUser) {
+    public User updateUser(int id, User updatedUser) throws ResourceNotFoundException, UniqueViolationException {
         return usersService.update(id, updatedUser);
     }
 
     @Override
-    public void removeUser(int id) {
+    public void removeUser(int id) throws ResourceNotFoundException {
         usersService.remove(id);
     }
 }

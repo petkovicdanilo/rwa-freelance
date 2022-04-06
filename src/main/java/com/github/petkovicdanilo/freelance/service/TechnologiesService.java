@@ -1,5 +1,7 @@
 package com.github.petkovicdanilo.freelance.service;
 
+import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Technology;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +19,9 @@ public class TechnologiesService {
         return technologiesRepository.findAll();
     }
 
-    public Technology getOne(int id) {
-        return technologiesRepository.findById(id).orElse(null);
+    public Technology getOne(int id) throws ResourceNotFoundException {
+        return technologiesRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY));
     }
 
     public Technology save(Technology technology) {
@@ -26,8 +29,9 @@ public class TechnologiesService {
         return technology;
     }
 
-    public Technology update(int id, Technology updatedTechnology) {
-        Technology technology = technologiesRepository.findById(id).orElse(null);
+    public Technology update(int id, Technology updatedTechnology) throws ResourceNotFoundException {
+        Technology technology = technologiesRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY));
 
         technology.setId(updatedTechnology.getId());
         technology.setName(updatedTechnology.getName());
@@ -35,9 +39,9 @@ public class TechnologiesService {
         return technology;
     }
 
-    public void remove(int id) {
+    public void remove(int id) throws ResourceNotFoundException {
         if(!technologiesRepository.existsById(id)) {
-            return;
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY);
         }
 
         technologiesRepository.deleteById(id);

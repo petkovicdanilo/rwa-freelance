@@ -1,5 +1,6 @@
 package com.github.petkovicdanilo.freelance.controller;
 
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Job;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,15 +14,15 @@ public interface JobsRestController {
     List<Job> getJobs(@RequestParam(name = "min-price", required = false) Double minPrice);
 
     @GetMapping("/{id}")
-    Job getJob(@PathVariable int id);
+    Job getJob(@PathVariable int id) throws ResourceNotFoundException;
 
     @PostMapping()
     Job saveJob(@RequestBody Job job);
 
     @PutMapping("/{id}")
-    Job updateJob(@PathVariable int id, @RequestBody Job updatedJob);
+    Job updateJob(@PathVariable int id, @RequestBody Job updatedJob) throws ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void removeJob(@PathVariable int id);
+    void removeJob(@PathVariable int id) throws ResourceNotFoundException;
 }

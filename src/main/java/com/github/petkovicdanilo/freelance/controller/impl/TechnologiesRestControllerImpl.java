@@ -1,6 +1,7 @@
 package com.github.petkovicdanilo.freelance.controller.impl;
 
 import com.github.petkovicdanilo.freelance.controller.TechnologiesRestController;
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Technology;
 import com.github.petkovicdanilo.freelance.service.TechnologiesService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TechnologiesRestControllerImpl implements TechnologiesRestControlle
     }
 
     @Override
-    public Technology getTechnology(int id) {
+    public Technology getTechnology(int id) throws ResourceNotFoundException {
         return this.technologiesService.getOne(id);
     }
 
@@ -30,12 +31,12 @@ public class TechnologiesRestControllerImpl implements TechnologiesRestControlle
     }
 
     @Override
-    public Technology updateTechnology(int id, Technology technology) {
+    public Technology updateTechnology(int id, Technology technology) throws ResourceNotFoundException {
         return this.technologiesService.update(id, technology);
     }
 
     @Override
-    public void removeTechnology(int id) {
+    public void removeTechnology(int id) throws ResourceNotFoundException {
         this.technologiesService.remove(id);
     }
 }

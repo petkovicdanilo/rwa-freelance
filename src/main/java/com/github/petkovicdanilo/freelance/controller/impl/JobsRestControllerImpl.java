@@ -1,6 +1,7 @@
 package com.github.petkovicdanilo.freelance.controller.impl;
 
 import com.github.petkovicdanilo.freelance.controller.JobsRestController;
+import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Job;
 import com.github.petkovicdanilo.freelance.service.JobsService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class JobsRestControllerImpl implements JobsRestController {
         return jobsService.getAll(minPrice);
     }
 
-    public Job getJob(int id) {
+    public Job getJob(int id) throws ResourceNotFoundException {
         return jobsService.getOne(id);
     }
 
@@ -26,11 +27,11 @@ public class JobsRestControllerImpl implements JobsRestController {
         return jobsService.save(job);
     }
 
-    public Job updateJob(int id, Job updatedJob) {
+    public Job updateJob(int id, Job updatedJob) throws ResourceNotFoundException {
         return jobsService.update(id, updatedJob);
     }
 
-    public void removeJob(int id) {
+    public void removeJob(int id) throws ResourceNotFoundException {
         jobsService.remove(id);
     }
 }
