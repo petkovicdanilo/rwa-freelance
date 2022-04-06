@@ -5,12 +5,14 @@ import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.User;
 import com.github.petkovicdanilo.freelance.service.UsersService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "Users")
 @RequiredArgsConstructor
 public class UsersRestControllerImpl implements UsersRestController {
     private final UsersService usersService;

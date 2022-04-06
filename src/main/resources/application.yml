@@ -8,3 +8,6 @@ spring:
       ddl-auto: update # careful in production!!!
   jackson:
     default-property-inclusion: NON_EMPTY
+springdoc:
+  swagger-ui:
+    path: swagger-ui

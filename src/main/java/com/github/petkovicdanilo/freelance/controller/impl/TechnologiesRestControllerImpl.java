@@ -4,12 +4,14 @@ import com.github.petkovicdanilo.freelance.controller.TechnologiesRestController
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Technology;
 import com.github.petkovicdanilo.freelance.service.TechnologiesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "Technologies")
 @RequiredArgsConstructor
 public class TechnologiesRestControllerImpl implements TechnologiesRestController {
 

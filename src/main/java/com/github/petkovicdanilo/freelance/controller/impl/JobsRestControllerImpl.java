@@ -4,12 +4,14 @@ import com.github.petkovicdanilo.freelance.controller.JobsRestController;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.Job;
 import com.github.petkovicdanilo.freelance.service.JobsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "Jobs")
 @RequiredArgsConstructor
 public class JobsRestControllerImpl implements JobsRestController {
 
