@@ -1,7 +1,7 @@
 package com.github.petkovicdanilo.freelance.controller.impl;
 
 import com.github.petkovicdanilo.freelance.exception.BadRequestException;
-import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
+import com.github.petkovicdanilo.freelance.model.api.ErrorInfo;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import org.springframework.http.HttpStatus;

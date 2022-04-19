@@ -1,5 +1,6 @@
 package com.github.petkovicdanilo.freelance.exception;
 
+import com.github.petkovicdanilo.freelance.model.api.ErrorInfo;
 import lombok.Getter;
 
 @Getter

@@ -1,6 +1,6 @@
 package com.github.petkovicdanilo.freelance.model.api.user;
 
-import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
+import com.github.petkovicdanilo.freelance.model.common.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
@@ -25,5 +25,5 @@ public class UserSaveDto {
 
     @Builder.Default
     @Schema(description = "User's gender", example = "MALE")
-    UserEntity.Gender gender = UserEntity.Gender.UNKNOWN;
+    Gender gender = Gender.UNKNOWN;
 }

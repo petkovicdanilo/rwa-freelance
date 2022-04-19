@@ -1,4 +1,4 @@
-package com.github.petkovicdanilo.freelance.exception;
+package com.github.petkovicdanilo.freelance.model.api;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

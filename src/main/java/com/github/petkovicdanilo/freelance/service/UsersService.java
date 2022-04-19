@@ -1,11 +1,10 @@
 package com.github.petkovicdanilo.freelance.service;
 
-import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
+import com.github.petkovicdanilo.freelance.model.api.ErrorInfo;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.api.user.UserDto;
 import com.github.petkovicdanilo.freelance.model.api.user.UserSaveDto;
-import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
 import com.github.petkovicdanilo.freelance.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.github.petkovicdanilo.freelance.model.entity;
 
+import com.github.petkovicdanilo.freelance.model.common.Gender;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,10 +32,4 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Gender gender = Gender.UNKNOWN;
-
-    public enum Gender{
-        FEMALE,
-        MALE,
-        UNKNOWN,
-    };
 }

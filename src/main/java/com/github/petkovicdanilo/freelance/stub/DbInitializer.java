@@ -1,5 +1,6 @@
 package com.github.petkovicdanilo.freelance.stub;
 
+import com.github.petkovicdanilo.freelance.model.common.Gender;
 import com.github.petkovicdanilo.freelance.model.entity.JobEntity;
 import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
 import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
@@ -41,14 +42,14 @@ public class DbInitializer implements CommandLineRunner {
                 .lastName("Peric")
                 .email("pera.peric@example.com")
                 .password("pera")
-                .gender(UserEntity.Gender.MALE)
+                .gender(Gender.MALE)
                 .build();
         UserEntity user2 = UserEntity.builder()
                 .firstName("Milica")
                 .lastName("Milicevic")
                 .email("milica@example.com")
                 .password("milica")
-                .gender(UserEntity.Gender.FEMALE)
+                .gender(Gender.FEMALE)
                 .build();
         UserEntity user3 = UserEntity.builder()
                 .firstName("Vanja")

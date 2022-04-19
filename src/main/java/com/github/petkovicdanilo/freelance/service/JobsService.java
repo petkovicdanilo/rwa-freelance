@@ -1,6 +1,6 @@
 package com.github.petkovicdanilo.freelance.service;
 
-import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
+import com.github.petkovicdanilo.freelance.model.api.ErrorInfo;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.api.job.JobDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobSaveDto;
