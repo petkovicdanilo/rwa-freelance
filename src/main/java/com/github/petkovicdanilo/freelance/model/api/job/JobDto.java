@@ -11,10 +11,14 @@ public class JobDto {
     @Schema(description = "Job identifier", example = "1")
     int id;
 
+    @Schema(description = "Job title", example = "Spring + React app")
     String title;
 
+    @Schema(description = "Job description",
+            example = "Create a full stack web app using Spring on backend and React on frontend")
     String description;
 
+    @Schema(description = "Job price", example = "500.0")
     double price;
 
 }
