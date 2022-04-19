@@ -1,17 +1,17 @@
-package com.github.petkovicdanilo.freelance.model;
+package com.github.petkovicdanilo.freelance.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "User")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

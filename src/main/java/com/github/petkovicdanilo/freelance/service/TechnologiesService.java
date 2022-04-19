@@ -2,41 +2,52 @@ package com.github.petkovicdanilo.freelance.service;
 
 import com.github.petkovicdanilo.freelance.exception.ErrorInfo;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
-import com.github.petkovicdanilo.freelance.model.Technology;
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologyDto;
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologySaveDto;
+import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
+import com.github.petkovicdanilo.freelance.model.mapper.TechnologiesMapper;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TechnologiesService {
 
     private final TechnologiesRepository technologiesRepository;
+    private final TechnologiesMapper technologiesMapper;
 
-    public List<Technology> getAll() {
-        return technologiesRepository.findAll();
+    public List<TechnologyDto> getAll() {
+        return technologiesRepository.findAll()
+                .stream()
+                .map(technologiesMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public Technology getOne(int id) throws ResourceNotFoundException {
-        return technologiesRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY));
-    }
-
-    public Technology save(Technology technology) {
-        technologiesRepository.save(technology);
-        return technology;
-    }
-
-    public Technology update(int id, Technology updatedTechnology) throws ResourceNotFoundException {
-        Technology technology = technologiesRepository.findById(id)
+    public TechnologyDto getOne(int id) throws ResourceNotFoundException {
+        TechnologyEntity technologyEntity = technologiesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY));
 
-        technology.setId(updatedTechnology.getId());
-        technology.setName(updatedTechnology.getName());
+        return technologiesMapper.toDto(technologyEntity);
+    }
 
-        return technology;
+    public TechnologyDto save(TechnologySaveDto technology) {
+        TechnologyEntity technologyEntity = technologiesRepository.save(technologiesMapper.toEntity(technology));
+        return technologiesMapper.toDto(technologyEntity);
+    }
+
+    public TechnologyDto update(int id, TechnologySaveDto updatedTechnology) throws ResourceNotFoundException {
+        if(!technologiesRepository.existsById(id)) {
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.TECHNOLOGY);
+        }
+
+        TechnologyEntity technologyEntity = technologiesMapper.toEntity(updatedTechnology);
+        technologyEntity.setId(id);
+
+        return technologiesMapper.toDto(technologiesRepository.save(technologyEntity));
     }
 
     public void remove(int id) throws ResourceNotFoundException {

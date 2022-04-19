@@ -1,19 +1,19 @@
 package com.github.petkovicdanilo.freelance.repository;
 
-import com.github.petkovicdanilo.freelance.model.Job;
+import com.github.petkovicdanilo.freelance.model.entity.JobEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface JobsRepository extends CrudRepository<Job, Integer> {
+public interface JobsRepository extends CrudRepository<JobEntity, Integer> {
     @Override
-    List<Job> findAll();
+    List<JobEntity> findAll();
 
-    List<Job> findAllByOrderByPriceDesc();
+    List<JobEntity> findAllByOrderByPriceDesc();
 
-    List<Job> findTop2ByOrderByPriceDesc();
+    List<JobEntity> findTop2ByOrderByPriceDesc();
 
     @Query("SELECT j FROM Job j WHERE j.price >= :minPrice")
-    List<Job> findAllWithMinPrice(double minPrice);
+    List<JobEntity> findAllWithMinPrice(double minPrice);
 }

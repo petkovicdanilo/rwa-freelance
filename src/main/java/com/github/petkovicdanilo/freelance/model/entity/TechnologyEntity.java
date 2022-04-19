@@ -1,16 +1,17 @@
-package com.github.petkovicdanilo.freelance.model;
+package com.github.petkovicdanilo.freelance.model.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Technology")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Technology {
+public class TechnologyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

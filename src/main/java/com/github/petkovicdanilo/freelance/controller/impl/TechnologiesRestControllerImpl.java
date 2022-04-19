@@ -2,7 +2,8 @@ package com.github.petkovicdanilo.freelance.controller.impl;
 
 import com.github.petkovicdanilo.freelance.controller.TechnologiesRestController;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
-import com.github.petkovicdanilo.freelance.model.Technology;
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologyDto;
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologySaveDto;
 import com.github.petkovicdanilo.freelance.service.TechnologiesService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,22 +19,22 @@ public class TechnologiesRestControllerImpl implements TechnologiesRestControlle
     private final TechnologiesService technologiesService;
 
     @Override
-    public List<Technology> getTechnologies() {
+    public List<TechnologyDto> getTechnologies() {
         return this.technologiesService.getAll();
     }
 
     @Override
-    public Technology getTechnology(int id) throws ResourceNotFoundException {
+    public TechnologyDto getTechnology(int id) throws ResourceNotFoundException {
         return this.technologiesService.getOne(id);
     }
 
     @Override
-    public Technology saveTechnology(Technology technology) {
+    public TechnologyDto saveTechnology(TechnologySaveDto technology) {
         return this.technologiesService.save(technology);
     }
 
     @Override
-    public Technology updateTechnology(int id, Technology technology) throws ResourceNotFoundException {
+    public TechnologyDto updateTechnology(int id, TechnologySaveDto technology) throws ResourceNotFoundException {
         return this.technologiesService.update(id, technology);
     }
 
