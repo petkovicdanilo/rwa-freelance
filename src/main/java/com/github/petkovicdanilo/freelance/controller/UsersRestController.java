@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface UsersRestController {
     @GetMapping()

@@ -11,6 +11,7 @@ import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
 import com.github.petkovicdanilo.freelance.model.mapper.UsersMapper;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import com.github.petkovicdanilo.freelance.repository.UsersRepository;
+import com.github.petkovicdanilo.freelance.repository.specification.UsersSearchSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +31,7 @@ public class UsersService {
     private final TechnologiesRepository technologiesRepository;
 
     public Page<UserDto> getAll(UsersSearchOptions usersSearchOptions) {
-        int page = 1;
+        int page = 0;
         if(usersSearchOptions.getPage() != null && usersSearchOptions.getPage() > 0) {
             page = usersSearchOptions.getPage() - 1;
         }
@@ -40,7 +41,8 @@ public class UsersService {
             pageSize = usersSearchOptions.getPageSize();
         }
 
-        return usersRepository.findAll(PageRequest.of(page, pageSize))
+        return usersRepository
+            .findAll(new UsersSearchSpecification(usersSearchOptions), PageRequest.of(page, pageSize))
             .map(usersMapper::toDto);
     }
 

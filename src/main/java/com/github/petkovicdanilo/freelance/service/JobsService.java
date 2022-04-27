@@ -10,6 +10,7 @@ import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
 import com.github.petkovicdanilo.freelance.model.mapper.JobsMapper;
 import com.github.petkovicdanilo.freelance.repository.JobsRepository;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
+import com.github.petkovicdanilo.freelance.repository.specification.JobsSearchSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +38,7 @@ public class JobsService {
     }
 
     public Page<JobDto> getAll(JobsSearchOptions jobsSearchOptions) {
-        int page = 1;
+        int page = 0;
         if(jobsSearchOptions.getPage() != null && jobsSearchOptions.getPage() > 0) {
             page = jobsSearchOptions.getPage() - 1;
         }
@@ -47,8 +48,9 @@ public class JobsService {
             pageSize = jobsSearchOptions.getPageSize();
         }
 
-        return jobsRepository.findAll(PageRequest.of(page, pageSize))
-                .map(jobsMapper::toDto);
+        return jobsRepository
+            .findAll(new JobsSearchSpecification(jobsSearchOptions), PageRequest.of(page, pageSize))
+            .map(jobsMapper::toDto);
     }
 
     public JobDto save(JobSaveDto job) {

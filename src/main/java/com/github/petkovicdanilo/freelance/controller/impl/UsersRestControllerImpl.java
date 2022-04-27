@@ -6,14 +6,11 @@ import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.api.user.UserDto;
 import com.github.petkovicdanilo.freelance.model.api.user.UserSaveDto;
 import com.github.petkovicdanilo.freelance.model.api.user.UsersSearchOptions;
-import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
 import com.github.petkovicdanilo.freelance.service.UsersService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @Tag(name = "Users")
