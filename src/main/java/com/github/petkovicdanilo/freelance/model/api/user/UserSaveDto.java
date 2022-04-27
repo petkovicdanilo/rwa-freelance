@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.List;
+
 
 @Value
 @Builder
@@ -26,4 +28,7 @@ public class UserSaveDto {
     @Builder.Default
     @Schema(description = "User's gender", example = "MALE")
     Gender gender = Gender.UNKNOWN;
+
+    @Schema(description = "Ids of technologies associated with user")
+    List<Integer> technologyIds;
 }

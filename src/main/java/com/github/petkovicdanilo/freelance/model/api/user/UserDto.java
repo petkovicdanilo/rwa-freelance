@@ -1,9 +1,12 @@
 package com.github.petkovicdanilo.freelance.model.api.user;
 
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologyDto;
 import com.github.petkovicdanilo.freelance.model.common.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
+
+import java.util.List;
 
 @Value
 @Builder
@@ -25,4 +28,7 @@ public class UserDto {
     @Builder.Default
     @Schema(description = "User's gender", example = "MALE")
     Gender gender = Gender.UNKNOWN;
+
+    @Schema(description = "Technologies associated with user")
+    List<TechnologyDto> technologies;
 }

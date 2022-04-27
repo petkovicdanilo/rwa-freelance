@@ -28,6 +28,7 @@ public class ErrorInfo {
         JOB,
         TECHNOLOGY,
         USER,
+        APPLICATION,
     }
 
 }

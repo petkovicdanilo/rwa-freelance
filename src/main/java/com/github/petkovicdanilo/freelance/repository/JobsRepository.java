@@ -14,6 +14,6 @@ public interface JobsRepository extends CrudRepository<JobEntity, Integer> {
 
     List<JobEntity> findTop2ByOrderByPriceDesc();
 
-    @Query("SELECT j FROM Job j WHERE j.price >= :minPrice")
+    @Query("SELECT j FROM JobEntity j WHERE j.price >= :minPrice")
     List<JobEntity> findAllWithMinPrice(double minPrice);
 }

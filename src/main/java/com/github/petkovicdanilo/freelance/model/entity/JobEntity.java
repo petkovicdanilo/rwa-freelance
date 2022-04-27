@@ -3,6 +3,8 @@ package com.github.petkovicdanilo.freelance.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Job")
@@ -24,4 +26,22 @@ public class JobEntity {
 
     @Column(nullable = false)
     private double price;
+
+    private boolean active = true;
+
+    @ManyToOne(optional = false)
+    @JoinColumn
+    private UserEntity employer;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        joinColumns = @JoinColumn(name = "job_id"),
+        inverseJoinColumns = @JoinColumn(name = "technology_id")
+    )
+    @Singular
+    private Set<TechnologyEntity> technologies;
+
+    @OneToMany(mappedBy = "job")
+    @Singular
+    private List<ApplicationEntity> applications;
 }

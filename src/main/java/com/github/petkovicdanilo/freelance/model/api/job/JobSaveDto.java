@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.List;
+
 @Value
 @Builder
 @Schema(name = "JobSave")
@@ -19,4 +21,6 @@ public class JobSaveDto {
     @Schema(description = "Job price", example = "500.0")
     double price;
 
+    @Schema(description = "Ids of technologies associated with job")
+    List<Integer> technologyIds;
 }

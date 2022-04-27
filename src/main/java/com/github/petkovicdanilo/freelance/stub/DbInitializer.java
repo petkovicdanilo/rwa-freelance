@@ -37,48 +37,6 @@ public class DbInitializer implements CommandLineRunner {
 
         log.info("Initializing database");
 
-        UserEntity user1 = UserEntity.builder()
-                .firstName("Pera")
-                .lastName("Peric")
-                .email("pera.peric@example.com")
-                .password("pera")
-                .gender(Gender.MALE)
-                .build();
-        UserEntity user2 = UserEntity.builder()
-                .firstName("Milica")
-                .lastName("Milicevic")
-                .email("milica@example.com")
-                .password("milica")
-                .gender(Gender.FEMALE)
-                .build();
-        UserEntity user3 = UserEntity.builder()
-                .firstName("Vanja")
-                .lastName("Vanjic")
-                .email("vanja@example.com")
-                .password("vanja")
-                .build();
-
-        usersRepository.saveAll(Arrays.asList(user1, user2, user3));
-        log.info("Initialized users");
-
-        JobEntity job1 = JobEntity.builder()
-                .title("job 1")
-                .description("description for job 1")
-                .price(100)
-                .build();
-        JobEntity job2 = JobEntity.builder()
-                .title("job 2")
-                .description("description for job 2")
-                .price(200)
-                .build();
-        JobEntity job3 = JobEntity.builder()
-                .title("job 3")
-                .description("description for job 3")
-                .price(300)
-                .build();
-
-        jobsRepository.saveAll(Arrays.asList(job1, job2, job3));
-        log.info("Initialized jobs");
 
         TechnologyEntity java = TechnologyEntity.builder().name("Java").build();
         TechnologyEntity cSharp = TechnologyEntity.builder().name("C#").build();
@@ -87,5 +45,64 @@ public class DbInitializer implements CommandLineRunner {
 
         technologiesRepository.saveAll(Arrays.asList(java, cSharp, spring, cpp));
         log.info("Initialized technologies");
+
+
+        UserEntity user1 = UserEntity.builder()
+                .firstName("Pera")
+                .lastName("Peric")
+                .email("pera.peric@example.com")
+                .password("pera")
+                .gender(Gender.MALE)
+                .technology(java)
+                .technology(spring)
+                .build();
+        UserEntity user2 = UserEntity.builder()
+                .firstName("Milica")
+                .lastName("Milicevic")
+                .email("milica@example.com")
+                .password("milica")
+                .gender(Gender.FEMALE)
+                .technology(cSharp)
+                .technology(java)
+                .build();
+        UserEntity user3 = UserEntity.builder()
+                .firstName("Vanja")
+                .lastName("Vanjic")
+                .email("vanja@example.com")
+                .password("vanja")
+                .technology(cpp)
+                .build();
+
+        usersRepository.saveAll(Arrays.asList(user1, user2, user3));
+        log.info("Initialized users");
+
+        JobEntity job1 = JobEntity.builder()
+                .employer(user1)
+                .title("job 1")
+                .description("description for job 1")
+                .price(100)
+                .technology(java)
+                .technology(spring)
+                .build();
+        JobEntity job2 = JobEntity.builder()
+                .employer(user1)
+                .title("job 2")
+                .description("description for job 2")
+                .price(200)
+                .technology(java)
+                .technology(spring)
+                .build();
+        JobEntity job3 = JobEntity.builder()
+                .employer(user2)
+                .title("job 3")
+                .description("description for job 3")
+                .price(300)
+                .technology(cSharp)
+                .technology(cpp)
+                .build();
+
+        jobsRepository.saveAll(Arrays.asList(job1, job2, job3));
+        log.info("Initialized jobs");
+
     }
 }

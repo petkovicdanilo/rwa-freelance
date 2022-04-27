@@ -1,8 +1,12 @@
 package com.github.petkovicdanilo.freelance.model.api.job;
 
+import com.github.petkovicdanilo.freelance.model.api.technology.TechnologyDto;
+import com.github.petkovicdanilo.freelance.model.api.user.UserDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
+
+import java.util.List;
 
 @Value
 @Builder
@@ -20,5 +24,14 @@ public class JobDto {
 
     @Schema(description = "Job price", example = "500.0")
     double price;
+
+    @Schema(description = "Is job still open for applications")
+    boolean active;
+
+    @Schema(description = "Id of the user who posted this job")
+    int employerId;
+
+    @Schema(description = "Technologies associated with job")
+    List<TechnologyDto> technologies;
 
 }
