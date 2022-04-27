@@ -5,7 +5,10 @@ import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.api.user.UserDto;
 import com.github.petkovicdanilo.freelance.model.api.user.UserSaveDto;
+import com.github.petkovicdanilo.freelance.model.api.user.UsersSearchOptions;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,7 @@ import java.util.List;
 public interface UsersRestController {
     @GetMapping()
     @Operation(description = "Get all users", summary = "Get all users")
-    List<UserDto> getUsers();
+    Page<UserDto> getUsers(@ParameterObject UsersSearchOptions usersSearchOptions);
 
     @GetMapping("/{id}")
     @Operation(description = "Get one user", summary = "Get one user")

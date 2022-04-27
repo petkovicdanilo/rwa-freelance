@@ -5,12 +5,15 @@ import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.exception.UniqueViolationException;
 import com.github.petkovicdanilo.freelance.model.api.user.UserDto;
 import com.github.petkovicdanilo.freelance.model.api.user.UserSaveDto;
+import com.github.petkovicdanilo.freelance.model.api.user.UsersSearchOptions;
 import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
 import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
 import com.github.petkovicdanilo.freelance.model.mapper.UsersMapper;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import com.github.petkovicdanilo.freelance.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -26,11 +29,19 @@ public class UsersService {
 
     private final TechnologiesRepository technologiesRepository;
 
-    public List<UserDto> getAll() {
-        return usersRepository.findAll()
-                .stream()
-                .map(usersMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<UserDto> getAll(UsersSearchOptions usersSearchOptions) {
+        int page = 1;
+        if(usersSearchOptions.getPage() != null && usersSearchOptions.getPage() > 0) {
+            page = usersSearchOptions.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(usersSearchOptions.getPageSize() != null && usersSearchOptions.getPageSize() > 0) {
+            pageSize = usersSearchOptions.getPageSize();
+        }
+
+        return usersRepository.findAll(PageRequest.of(page, pageSize))
+            .map(usersMapper::toDto);
     }
 
     public UserDto getOne(int id) throws ResourceNotFoundException {

@@ -4,12 +4,15 @@ import com.github.petkovicdanilo.freelance.model.api.ErrorInfo;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.api.job.JobDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobSaveDto;
+import com.github.petkovicdanilo.freelance.model.api.job.JobsSearchOptions;
 import com.github.petkovicdanilo.freelance.model.entity.JobEntity;
 import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
 import com.github.petkovicdanilo.freelance.model.mapper.JobsMapper;
 import com.github.petkovicdanilo.freelance.repository.JobsRepository;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -33,18 +36,19 @@ public class JobsService {
         return jobsMapper.toDto(jobEntity);
     }
 
-    public List<JobDto> getAll(Double minPrice) {
-        if(minPrice != null) {
-            return jobsRepository.findAllWithMinPrice(minPrice)
-                    .stream()
-                    .map(jobsMapper::toDto)
-                    .collect(Collectors.toList());
+    public Page<JobDto> getAll(JobsSearchOptions jobsSearchOptions) {
+        int page = 1;
+        if(jobsSearchOptions.getPage() != null && jobsSearchOptions.getPage() > 0) {
+            page = jobsSearchOptions.getPage() - 1;
         }
 
-        return jobsRepository.findAll()
-                .stream()
-                .map(jobsMapper::toDto)
-                .collect(Collectors.toList());
+        int pageSize = 10;
+        if(jobsSearchOptions.getPageSize() != null && jobsSearchOptions.getPageSize() > 0) {
+            pageSize = jobsSearchOptions.getPageSize();
+        }
+
+        return jobsRepository.findAll(PageRequest.of(page, pageSize))
+                .map(jobsMapper::toDto);
     }
 
     public JobDto save(JobSaveDto job) {

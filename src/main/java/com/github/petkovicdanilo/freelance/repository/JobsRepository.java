@@ -1,12 +1,12 @@
 package com.github.petkovicdanilo.freelance.repository;
 
 import com.github.petkovicdanilo.freelance.model.entity.JobEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface JobsRepository extends CrudRepository<JobEntity, Integer> {
+public interface JobsRepository extends JpaRepository<JobEntity, Integer> {
     @Override
     List<JobEntity> findAll();
 
