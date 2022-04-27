@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(path = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,11 +26,11 @@ public interface JobsRestController {
 
     @PostMapping()
     @Operation(description = "Create job", summary = "Create job")
-    JobDto saveJob(@RequestBody JobSaveDto job);
+    JobDto saveJob(@Valid @RequestBody JobSaveDto job);
 
     @PutMapping("/{id}")
     @Operation(description = "Update job", summary = "Update job")
-    JobDto updateJob(@PathVariable int id, @RequestBody JobSaveDto updatedJob) throws ResourceNotFoundException;
+    JobDto updateJob(@PathVariable int id, @Valid @RequestBody JobSaveDto updatedJob) throws ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

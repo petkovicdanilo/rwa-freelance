@@ -17,7 +17,7 @@ public class TechnologyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 32)
     private String name;
 
     @ManyToMany(mappedBy = "technologies")

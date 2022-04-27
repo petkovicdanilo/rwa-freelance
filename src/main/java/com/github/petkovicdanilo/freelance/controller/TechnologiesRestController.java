@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(path = "/technologies", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,11 +23,11 @@ public interface TechnologiesRestController {
 
     @PostMapping()
     @Operation(description = "Create technology", summary = "Create technology")
-    TechnologyDto saveTechnology(@RequestBody TechnologySaveDto technology);
+    TechnologyDto saveTechnology(@Valid @RequestBody TechnologySaveDto technology);
 
     @PutMapping("/{id}")
     @Operation(description = "Update technology", summary = "Update technology")
-    TechnologyDto updateTechnology(@PathVariable int id, @RequestBody TechnologySaveDto technology) throws ResourceNotFoundException;
+    TechnologyDto updateTechnology(@PathVariable int id, @Valid @RequestBody TechnologySaveDto technology) throws ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

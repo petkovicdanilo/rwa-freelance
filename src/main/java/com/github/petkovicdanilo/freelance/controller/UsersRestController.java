@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface UsersRestController {
     @GetMapping()
@@ -25,11 +27,11 @@ public interface UsersRestController {
 
     @PostMapping()
     @Operation(description = "Create user", summary = "Create user")
-    UserDto saveUser(@RequestBody UserSaveDto user) throws UniqueViolationException;
+    UserDto saveUser(@Valid @RequestBody UserSaveDto user) throws UniqueViolationException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update user", summary = "Update user")
-    UserDto updateUser(@PathVariable int id, @RequestBody UserSaveDto updatedUser) throws ResourceNotFoundException, UniqueViolationException;
+    UserDto updateUser(@PathVariable int id, @Valid @RequestBody UserSaveDto updatedUser) throws ResourceNotFoundException, UniqueViolationException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

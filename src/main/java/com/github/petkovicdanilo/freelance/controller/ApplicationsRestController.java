@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,11 +28,11 @@ public interface ApplicationsRestController {
 
     @PostMapping("/jobs/{jobId}/applications/{userId}")
     @Operation(description = "Create application for job as given user", summary = "Create application for job as given user")
-    ApplicationDto saveApplication(@PathVariable int jobId, @PathVariable int userId, @RequestBody ApplicationSaveDto application) throws BadRequestException, ResourceNotFoundException;
+    ApplicationDto saveApplication(@PathVariable int jobId, @PathVariable int userId, @Valid @RequestBody ApplicationSaveDto application) throws BadRequestException, ResourceNotFoundException;
 
     @PutMapping("/jobs/{jobId}/applications/{userId}")
     @Operation(description = "Update user's job application", summary = "Update user's job application")
-    ApplicationDto updateApplication(@PathVariable int jobId, @PathVariable int userId, @RequestBody ApplicationSaveDto application) throws ResourceNotFoundException;
+    ApplicationDto updateApplication(@PathVariable int jobId, @PathVariable int userId, @Valid @RequestBody ApplicationSaveDto application) throws ResourceNotFoundException;
 
     @DeleteMapping("/jobs/{jobId}/applications/{userId}")
     @Operation(description = "Delete user's job application", summary = "Delete user's job application")
