@@ -35,6 +35,9 @@ public class UserEntity {
     @Builder.Default
     private Gender gender = Gender.UNKNOWN;
 
+    @Builder.Default
+    private boolean isAdmin = false;
+
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobEntity> postedJobs;
 

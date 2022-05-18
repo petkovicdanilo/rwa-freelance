@@ -27,6 +27,7 @@ public class JobEntity {
     @Column(nullable = false)
     private double price;
 
+    @Builder.Default
     private boolean active = true;
 
     @ManyToOne(optional = false)

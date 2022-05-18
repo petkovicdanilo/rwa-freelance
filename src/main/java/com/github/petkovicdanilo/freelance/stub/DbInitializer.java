@@ -50,6 +50,13 @@ public class DbInitializer implements CommandLineRunner {
         log.info("Initialized technologies");
 
 
+        UserEntity admin = UserEntity.builder()
+                .firstName("Admin")
+                .lastName("Admin")
+                .email("admin@example.com")
+                .password(passwordEncoder.encode("admin"))
+                .isAdmin(true)
+                .build();
         UserEntity user1 = UserEntity.builder()
                 .firstName("Pera")
                 .lastName("Peric")
@@ -76,7 +83,7 @@ public class DbInitializer implements CommandLineRunner {
                 .technology(cpp)
                 .build();
 
-        usersRepository.saveAll(Arrays.asList(user1, user2, user3));
+        usersRepository.saveAll(Arrays.asList(admin, user1, user2, user3));
         log.info("Initialized users");
 
         JobEntity job1 = JobEntity.builder()

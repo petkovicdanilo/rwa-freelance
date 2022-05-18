@@ -28,6 +28,8 @@ public class ErrorInfo {
         UNKNOWN,
         UNIQUE_VIOLATION,
         VALIDATION,
+        AUTHENTICATION,
+        UNAUTHORIZED,
     }
 
     public enum ResourceType {
@@ -35,6 +37,7 @@ public class ErrorInfo {
         TECHNOLOGY,
         USER,
         APPLICATION,
+        ACCESS,
     }
 
 }
