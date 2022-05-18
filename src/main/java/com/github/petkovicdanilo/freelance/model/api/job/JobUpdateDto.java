@@ -11,8 +11,8 @@ import java.util.List;
 
 @Value
 @Builder
-@Schema(name = "JobSave")
-public class JobSaveDto {
+@Schema(name = "JobUpdate")
+public class JobUpdateDto {
 
     @Schema(description = "Job title", example = "Spring + React app")
     @NotBlank
@@ -27,9 +27,6 @@ public class JobSaveDto {
 
     @Schema(description = "Job price", example = "500.0")
     double price;
-
-    @Schema(description = "Employer id", example = "1")
-    int employerId;
 
     @Schema(description = "Ids of technologies associated with job")
     @NotEmpty

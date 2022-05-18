@@ -1,8 +1,10 @@
 package com.github.petkovicdanilo.freelance.controller;
 
+import com.github.petkovicdanilo.freelance.exception.BadRequestException;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.api.job.JobDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobSaveDto;
+import com.github.petkovicdanilo.freelance.model.api.job.JobUpdateDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobsSearchOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springdoc.api.annotations.ParameterObject;
@@ -26,11 +28,11 @@ public interface JobsRestController {
 
     @PostMapping()
     @Operation(description = "Create job", summary = "Create job")
-    JobDto saveJob(@Valid @RequestBody JobSaveDto job);
+    JobDto saveJob(@Valid @RequestBody JobSaveDto job) throws ResourceNotFoundException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update job", summary = "Update job")
-    JobDto updateJob(@PathVariable int id, @Valid @RequestBody JobSaveDto updatedJob) throws ResourceNotFoundException;
+    JobDto updateJob(@PathVariable int id, @Valid @RequestBody JobUpdateDto updatedJob) throws ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -4,6 +4,7 @@ import com.github.petkovicdanilo.freelance.controller.JobsRestController;
 import com.github.petkovicdanilo.freelance.exception.ResourceNotFoundException;
 import com.github.petkovicdanilo.freelance.model.api.job.JobDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobSaveDto;
+import com.github.petkovicdanilo.freelance.model.api.job.JobUpdateDto;
 import com.github.petkovicdanilo.freelance.model.api.job.JobsSearchOptions;
 import com.github.petkovicdanilo.freelance.service.JobsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,11 +29,11 @@ public class JobsRestControllerImpl implements JobsRestController {
         return jobsService.getOne(id);
     }
 
-    public JobDto saveJob(JobSaveDto job) {
+    public JobDto saveJob(JobSaveDto job) throws ResourceNotFoundException {
         return jobsService.save(job);
     }
 
-    public JobDto updateJob(int id, JobSaveDto updatedJob) throws ResourceNotFoundException {
+    public JobDto updateJob(int id, JobUpdateDto updatedJob) throws ResourceNotFoundException {
         return jobsService.update(id, updatedJob);
     }
 
