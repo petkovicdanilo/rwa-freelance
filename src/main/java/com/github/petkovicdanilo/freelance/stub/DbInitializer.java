@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -24,6 +25,8 @@ public class DbInitializer implements CommandLineRunner {
     private final UsersRepository usersRepository;
     private final JobsRepository jobsRepository;
     private final TechnologiesRepository technologiesRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -51,7 +54,7 @@ public class DbInitializer implements CommandLineRunner {
                 .firstName("Pera")
                 .lastName("Peric")
                 .email("pera.peric@example.com")
-                .password("pera")
+                .password(passwordEncoder.encode("pera"))
                 .gender(Gender.MALE)
                 .technology(java)
                 .technology(spring)
@@ -60,7 +63,7 @@ public class DbInitializer implements CommandLineRunner {
                 .firstName("Milica")
                 .lastName("Milicevic")
                 .email("milica@example.com")
-                .password("milica")
+                .password(passwordEncoder.encode("milica"))
                 .gender(Gender.FEMALE)
                 .technology(cSharp)
                 .technology(java)
@@ -69,7 +72,7 @@ public class DbInitializer implements CommandLineRunner {
                 .firstName("Vanja")
                 .lastName("Vanjic")
                 .email("vanja@example.com")
-                .password("vanja")
+                .password(passwordEncoder.encode("vanja"))
                 .technology(cpp)
                 .build();
 
