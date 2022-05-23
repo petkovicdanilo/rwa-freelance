@@ -1,9 +1,12 @@
 package com.github.petkovicdanilo.freelance.stub;
 
+import com.github.petkovicdanilo.freelance.model.common.ApplicationStatus;
 import com.github.petkovicdanilo.freelance.model.common.Gender;
+import com.github.petkovicdanilo.freelance.model.entity.ApplicationEntity;
 import com.github.petkovicdanilo.freelance.model.entity.JobEntity;
 import com.github.petkovicdanilo.freelance.model.entity.TechnologyEntity;
 import com.github.petkovicdanilo.freelance.model.entity.UserEntity;
+import com.github.petkovicdanilo.freelance.repository.ApplicationsRepository;
 import com.github.petkovicdanilo.freelance.repository.JobsRepository;
 import com.github.petkovicdanilo.freelance.repository.TechnologiesRepository;
 import com.github.petkovicdanilo.freelance.repository.UsersRepository;
@@ -26,6 +29,8 @@ public class DbInitializer implements CommandLineRunner {
     private final JobsRepository jobsRepository;
     private final TechnologiesRepository technologiesRepository;
 
+    private final ApplicationsRepository applicationsRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -40,7 +45,6 @@ public class DbInitializer implements CommandLineRunner {
 
         log.info("Initializing database");
 
-
         TechnologyEntity java = TechnologyEntity.builder().name("Java").build();
         TechnologyEntity cSharp = TechnologyEntity.builder().name("C#").build();
         TechnologyEntity spring = TechnologyEntity.builder().name("Spring").build();
@@ -48,7 +52,6 @@ public class DbInitializer implements CommandLineRunner {
 
         technologiesRepository.saveAll(Arrays.asList(java, cSharp, spring, cpp));
         log.info("Initialized technologies");
-
 
         UserEntity admin = UserEntity.builder()
                 .firstName("Admin")
@@ -93,6 +96,7 @@ public class DbInitializer implements CommandLineRunner {
                 .price(100)
                 .technology(java)
                 .technology(spring)
+                .active(false)
                 .build();
         JobEntity job2 = JobEntity.builder()
                 .employer(user1)
@@ -113,6 +117,47 @@ public class DbInitializer implements CommandLineRunner {
 
         jobsRepository.saveAll(Arrays.asList(job1, job2, job3));
         log.info("Initialized jobs");
+
+        ApplicationEntity application1 = ApplicationEntity.builder()
+                .candidate(user2)
+                .job(job1)
+                .text("User2 applying for job1")
+                .status(ApplicationStatus.ACCEPTED)
+                .build();
+        ApplicationEntity application2 = ApplicationEntity.builder()
+                .candidate(user3)
+                .job(job1)
+                .text("User3 applying for job1")
+                .status(ApplicationStatus.REJECTED)
+                .build();
+        ApplicationEntity application3 = ApplicationEntity.builder()
+                .candidate(user2)
+                .job(job2)
+                .text("User2 applying for job2")
+                .status(ApplicationStatus.PENDING)
+                .build();
+        ApplicationEntity application4 = ApplicationEntity.builder()
+                .candidate(user3)
+                .job(job2)
+                .text("User3 applying for job2")
+                .status(ApplicationStatus.PENDING)
+                .build();
+        ApplicationEntity application5 = ApplicationEntity.builder()
+                .candidate(user3)
+                .job(job3)
+                .text("User3 applying for job3")
+                .status(ApplicationStatus.PENDING)
+                .build();
+        ApplicationEntity application6 = ApplicationEntity.builder()
+                .candidate(user1)
+                .job(job3)
+                .text("User1 applying for job3")
+                .status(ApplicationStatus.PENDING)
+                .build();
+
+        applicationsRepository.saveAll(
+                Arrays.asList(application1, application2, application3, application4, application5, application6));
+        log.info("Initialized applications");
 
     }
 }
