@@ -3,3 +3,11 @@ logging:
     org.hibernate:
       SQL: DEBUG
       type.descriptor.sql.BasicBinder: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+springdoc:
+  show-actuator: true

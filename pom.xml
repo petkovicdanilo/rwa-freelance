@@ -21,6 +21,7 @@
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<org.projectlombok.lombok-mapstruct-binding.version>0.2.0</org.projectlombok.lombok-mapstruct-binding.version>
 		<org.hibernate.orm.hibernate-jpamodelgen.version>5.6.5.Final</org.hibernate.orm.hibernate-jpamodelgen.version>
+		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,6 +85,17 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>pl.project13.maven</groupId>
+			<artifactId>git-commit-id-plugin</artifactId>
+			<version>${git-commit-id-plugin.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -99,6 +111,18 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 
 			<plugin>
