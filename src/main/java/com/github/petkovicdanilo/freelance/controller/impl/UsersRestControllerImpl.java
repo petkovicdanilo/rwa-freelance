@@ -30,7 +30,9 @@ public class UsersRestControllerImpl implements UsersRestController {
 
     @Override
     public UserDto saveUser(UserSaveDto user) throws UniqueViolationException {
-        return usersService.save(user);
+        UserDto userDto = usersService.save(user);
+        usersService.sendWelcomeEmail(userDto);
+        return userDto;
     }
 
     @Override

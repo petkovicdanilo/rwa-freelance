@@ -8,6 +8,16 @@ spring:
       ddl-auto: update # careful in production!!!
   jackson:
     default-property-inclusion: NON_EMPTY
+  mail:
+    host: ${FREELANCE_SMTP_HOST}
+    port: ${FREELANCE_SMTP_PORT}
+    username: ${FREELANCE_SMTP_USERNAME}
+    password: ${FREELANCE_SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
 springdoc:
   swagger-ui:
     path: swagger-ui

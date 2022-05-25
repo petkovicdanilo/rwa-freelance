@@ -15,12 +15,12 @@ import com.github.petkovicdanilo.freelance.repository.specification.UsersSearchS
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +29,8 @@ public class UsersService {
     private final UsersMapper usersMapper;
 
     private final TechnologiesRepository technologiesRepository;
+
+    private final JavaMailSender emailSender;
 
     public Page<UserDto> getAll(UsersSearchOptions usersSearchOptions) {
         int page = 0;
@@ -96,5 +98,22 @@ public class UsersService {
         }
 
         usersRepository.deleteById(id);
+    }
+
+    @Async
+    public void sendWelcomeEmail(UserDto userDto) {
+        SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setFrom("Freelance Admin <admin@freelance.com>");
+        email.setTo(String.format("%s %s <%s>", userDto.getFirstName(), userDto.getLastName(), userDto.getEmail()));
+        email.setSubject("Welcome to Freelance");
+        String messageText = String.format(
+                "Hello %s %s,\n\nWelcome to the Freelance application. We hope you like it.\n\nRegards\nFreelance team",
+                userDto.getFirstName(),
+                userDto.getLastName()
+        );
+        email.setText(messageText);
+
+        emailSender.send(email);
     }
 }
